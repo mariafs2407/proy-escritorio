@@ -1,0 +1,5 @@
+pe\isil\javacrudmvc\vista\vista.class
+pe\isil\javacrudmvc\controlador\Controlador.class
+pe\isil\javacrudmvc\modelo\ConexionDB.class
+pe\isil\javacrudmvc\modelo\Persona.class
+pe\isil\javacrudmvc\DAO\AD_Persona.class
