@@ -7,6 +7,8 @@ package pe.isil.javacrudmvc.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -44,7 +46,9 @@ public class Controlador implements ActionListener {
             listar(vista.tabla);//para mostrar los datos en la tabla
         }
         if (e.getSource() == vista.btnGuardar) {
-            insertar();
+            if(validar_entrada()){
+                insertar();
+            }            
             limpiarTabla();
             listar(vista.tabla);
         }
@@ -67,7 +71,9 @@ public class Controlador implements ActionListener {
         }
 
         if (e.getSource() == vista.btnActualizar) {
-            actualizar();
+            if(validar_entrada()){
+                actualizar();
+            }            
             limpiarTabla();
             listar(vista.tabla);
         }
@@ -85,6 +91,30 @@ public class Controlador implements ActionListener {
             modelo.removeRow(i);
             i = i - 1;
         }
+    }
+    
+    public boolean validar_entrada(){
+        if(vista.txtNombre.getText().isBlank() || vista.txtNombre.getText().isEmpty()){
+            JOptionPane.showMessageDialog(vista, "El nombre ingresado no es válido.");
+            vista.txtNombre.requestFocus();
+            return false;
+        }
+        
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        String email =vista.txtCorreo.getText(); 
+        Matcher mather = pattern.matcher(email);
+        if (mather.find()== false || vista.txtCorreo.getText().isBlank()) {
+            JOptionPane.showMessageDialog(vista,"El email ingresado no es válido.");
+            return false;
+        }
+        
+        if(vista.txtTelefono.getText().isBlank() || vista.txtTelefono.getText().length()!= 9){
+            JOptionPane.showMessageDialog(vista,"El teléfeno ingresado no es válido.");
+            return false; 
+        }
+        
+        return true;
     }
 
     public void eliminar() {
