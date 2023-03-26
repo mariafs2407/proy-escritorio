@@ -10,7 +10,8 @@ En este proyecto se uso el lenguaje JAVA ,  MVC y la conexión local a la BD MyS
 ![HOLA](./assets/validacion3.PNG)
 ![HOLA](./assets/validacion4.PNG)
 
--CRUD Con la bd
+
+-CRUD Con la bd MySQL : Atraves del controller
 ![HOLA](./assets/c-insertar.PNG)
 ![HOLA](./assets/c-editar.PNG)
 ![HOLA](./assets/c-actu.PNG)
