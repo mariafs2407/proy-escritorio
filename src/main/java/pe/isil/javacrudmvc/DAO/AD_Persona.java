@@ -152,4 +152,51 @@ public class AD_Persona {
         }
         return  resultado;
     }
+    
+    public boolean Delete(int id){
+        boolean resultado= false;
+        Connection Conexion= null;
+        try {
+           //1.ABRIR Conexion           
+           //Conexion = ConexionDB.getInstancia().getConexion();
+           ConexionDB conexionDB =ConexionDB.getInstancia();
+           Conexion =  conexionDB.getConexion();
+           //validamos q la conexion es diferente de nulo
+           if(Conexion != null){
+               //2.sql insert
+               String SQL="DELETE FROM persona WHERE id=?";
+               
+               //3.Asignar el valor a los parametros,clase pst(parepareStament)
+               //creando un objeto pst, de la clase preparedstament 
+               //prepara el codigo de la consulta sql,con parametros y lo ejecuta
+               PreparedStatement pst; 
+               pst = Conexion.prepareStatement(SQL);
+               //set(segun el tipo double,inter)
+               pst.setInt(1, id);
+               //4.Ejecutamos la insercion
+               int res;
+               //ejecutamos la consulta SQL en la baase de datos
+               //devuelve dos valores 1  y 0
+               res= pst.executeUpdate();
+               
+               if(res>0){
+                   resultado = true;//exito en la insercion
+                  
+               }else{
+                   resultado = false;//fracaso en la insercion
+                 
+               }
+                                  
+           }else{
+               System.out.println("Error en la conexion ala bd");
+           }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());//mostrar mensaje de error
+        } finally {
+            ConexionDB.getInstancia().close();//cerramos la base de datos
+        }
+        return  resultado;
+       
+    }
 }
