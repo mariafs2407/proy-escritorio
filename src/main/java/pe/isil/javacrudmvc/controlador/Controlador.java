@@ -48,8 +48,9 @@ public class Controlador implements ActionListener {
         if (e.getSource() == vista.btnGuardar) {
             if(validar_entrada()){
                 insertar();
+                limpiar_textos();
             }            
-            limpiarTabla();
+            limpiarTabla();            
             listar(vista.tabla);
         }
         if (e.getSource() == vista.btnEditar) {
@@ -73,14 +74,16 @@ public class Controlador implements ActionListener {
         if (e.getSource() == vista.btnActualizar) {
             if(validar_entrada()){
                 actualizar();
+                limpiar_textos();
             }            
-            limpiarTabla();
+            limpiarTabla();            
             listar(vista.tabla);
         }
 
         if (e.getSource() == vista.btnEliminar) {
             eliminar();
-            limpiarTabla();
+            limpiarTabla();  
+            limpiar_textos();
             listar(vista.tabla);
         }
 
@@ -106,17 +109,27 @@ public class Controlador implements ActionListener {
         Matcher mather = pattern.matcher(email);
         if (mather.find()== false || vista.txtCorreo.getText().isBlank()) {
             JOptionPane.showMessageDialog(vista,"El email ingresado no es válido.");
+            vista.txtCorreo.requestFocus();
             return false;
         }
         
         if(vista.txtTelefono.getText().isBlank() || vista.txtTelefono.getText().length()!= 9){
             JOptionPane.showMessageDialog(vista,"El teléfeno ingresado no es válido.");
+            vista.txtTelefono.requestFocus();
             return false; 
         }
         
         return true;
     }
 
+    public void limpiar_textos(){
+        vista.txtId.setText("");
+        vista.txtNombre.setText("");
+        vista.txtCorreo.setText("");
+        vista.txtTelefono.setText("");
+        vista.txtNombre.requestFocus();
+    }
+    
     public void eliminar() {
         int fila = vista.tabla.getSelectedRow();
         if (fila == -1) {
